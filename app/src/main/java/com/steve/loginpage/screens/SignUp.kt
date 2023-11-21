@@ -15,7 +15,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.steve.loginpage.R
+import com.steve.loginpage.components.CheckBoxComp
 import com.steve.loginpage.components.HeadingTextComponent
+import com.steve.loginpage.components.MyPassField
 import com.steve.loginpage.components.MyTextField
 import com.steve.loginpage.components.NormalTextComponent
 
@@ -35,20 +37,33 @@ fun SignUpScreen(){
 
         NormalTextComponent(value = stringResource(id = R.string.hello))
         HeadingTextComponent(value = stringResource(id = R.string.create_account))
+
             Spacer(modifier = Modifier.height(20.dp))
+
             MyTextField(labelValue = stringResource(id = R.string.first_name ),
-                    painterResource(id = R.drawable.user_24))
+                    painterResource(id = R.drawable.user_24)
+            )
 
             MyTextField(labelValue = stringResource(id = R.string.last_name),
-                painterResource(id = R.drawable.user_24)) // for icon
+                painterResource(id = R.drawable.user_24)// for icon
+            )
 
             MyTextField(labelValue = stringResource(id = R.string.email),
-                painterResource(id = R.drawable.email_24))
-            MyTextField(labelValue = stringResource(id = R.string.pass),
-                painterResource(id = R.drawable.baseline_lock_24))
+                painterResource(id = R.drawable.email_24)
+            )
+
+            MyPassField(labelValue = stringResource(id = R.string.pass),
+                painterResource(id = R.drawable.baseline_lock_24)
+            )
+
+            CheckBoxComp(value = stringResource(id = R.string.terms_and_conditions)
+                ,onTextSelected = {
+
+                })
 
 
         }
+
     }
 }
 

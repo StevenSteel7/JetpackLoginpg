@@ -1,11 +1,18 @@
 package com.steve.loginpage.components
 
+import android.util.Log
+import android.widget.CheckBox
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -15,19 +22,23 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import com.steve.loginpage.R
 import com.steve.loginpage.ui.theme.Primary
@@ -149,3 +160,61 @@ fun MyPassField(labelValue: String , painterResource: Painter){
         else PasswordVisualTransformation()
     )
 }
+
+
+@Composable                                                     //void
+fun CheckBoxComp(value: String , onTextSelected : (String) -> Unit){
+    Row( modifier = Modifier
+        .fillMaxWidth()
+        .heightIn(56.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ){
+        val checkedState = remember {
+        mutableStateOf<Boolean>(false)
+        }
+
+        Checkbox(checked = checkedState.value, onCheckedChange ={
+            checkedState.value != checkedState.value
+        } )
+
+        /*NormalTextComponent(value)*/
+        ClickableTextComponent(value = value,onTextSelected)
+    }
+}
+
+@Composable
+fun ClickableTextComponent(value: String, onTextSelected : (String) -> Unit){
+    val initialText = "By contuning you accept our "
+    val privacyPolicy = "Privacy Policy "
+    val andText = "and "
+    val termsAndConditionText = "Terms of use"
+    val annonatedString  = buildAnnotatedString {
+        append(initialText)
+        withStyle(style = SpanStyle(color = Primary)){
+            pushStringAnnotation(tag = privacyPolicy, annotation = privacyPolicy)
+            append(privacyPolicy)
+        }
+        append(andText)
+        withStyle(style = SpanStyle(color = Primary)){
+            pushStringAnnotation(tag = termsAndConditionText, annotation = termsAndConditionText)
+            append(termsAndConditionText)
+        }       //       ^
+    //Just for apperance |
+
+    }
+
+
+
+    ClickableText(text =annonatedString , onClick ={offset -> // This offest is use to find the part of span that we have clicked
+        annonatedString.getStringAnnotations(offset,offset)
+            .firstOrNull()?.also { span ->
+            Log.d("ClickableTextComponent","{$span}")
+                if(span.item == termsAndConditionText ||span.item == privacyPolicy){
+                    onTextSelected(span.item)
+                    // onTextSelected is returned
+                    // CallBack implemented in signup
+                }
+        }
+    } )
+}
+
