@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">LoginPage</string>
     <string name ="hello">Hellooo BuuRooo!!</string>
+    <string name ="create_account">Create an Account</string>
+    <string name ="welcome">Welcome Back</string>
+    <string name ="first_name">First Name</string>
+    <string name ="last_name">Last Name</string>
+    <string name ="email">Email</string>
+    <string name ="pass">Password</string>
+    <string name="hide_password">\"Hide Password\"</string>
+    <string name="show_password">\"Show password\"</string>
+
+
 </resources>
