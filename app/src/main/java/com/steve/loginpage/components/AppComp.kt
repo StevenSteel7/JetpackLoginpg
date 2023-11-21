@@ -2,17 +2,24 @@ package com.steve.loginpage.components
 
 import android.util.Log
 import android.widget.CheckBox
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,6 +31,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -41,7 +50,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import com.steve.loginpage.R
+import com.steve.loginpage.ui.theme.GreyColor
 import com.steve.loginpage.ui.theme.Primary
+import com.steve.loginpage.ui.theme.Secondary
 import com.steve.loginpage.ui.theme.TextColor
 
 // This is fo type of text and their Props
@@ -218,3 +229,53 @@ fun ClickableTextComponent(value: String, onTextSelected : (String) -> Unit){
     } )
 }
 
+
+@Composable
+fun ButtonComp(value: String ){
+    Button(onClick = { /*TODO*/ },
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(48.dp),
+    contentPadding = PaddingValues(),
+        colors = ButtonDefaults.buttonColors(Color.Transparent))
+    {
+        //For gradient
+         Box(modifier = Modifier
+             .fillMaxWidth()
+             .heightIn(48.dp)
+             .background(
+                 brush = Brush.horizontalGradient(listOf(Secondary, Primary)),
+                 shape = RoundedCornerShape(50.dp)
+             ),
+            contentAlignment = Alignment.Center
+        ){
+            Text(text = value,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold)
+
+        }
+
+    }
+
+}
+
+@Composable
+fun DividerTextComp(){
+    Row(modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically){
+
+        Divider(
+            modifier =Modifier.fillMaxWidth().weight(1f),
+            color = GreyColor,
+            thickness = 1.dp
+        )
+        Text(modifier = Modifier.padding(8.dp),
+            text = "or", fontSize = 18.sp,color = TextColor)
+        Divider(
+            modifier =Modifier.fillMaxWidth().weight(1f),
+            color = GreyColor,
+            thickness = 1.dp
+        )
+
+    }
+}

@@ -15,11 +15,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.steve.loginpage.R
+import com.steve.loginpage.components.ButtonComp
 import com.steve.loginpage.components.CheckBoxComp
+import com.steve.loginpage.components.DividerTextComp
 import com.steve.loginpage.components.HeadingTextComponent
 import com.steve.loginpage.components.MyPassField
 import com.steve.loginpage.components.MyTextField
 import com.steve.loginpage.components.NormalTextComponent
+import com.steve.loginpage.navigation.Screen
+import com.steve.loginpage.navigation.pageRouter
 
 @Composable
 fun SignUpScreen(){
@@ -29,7 +33,7 @@ fun SignUpScreen(){
         modifier  = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(28.dp)
+            .padding(38.dp)
     ) {             // using String from strings.xml
 
         //for one below other
@@ -58,8 +62,13 @@ fun SignUpScreen(){
 
             CheckBoxComp(value = stringResource(id = R.string.terms_and_conditions)
                 ,onTextSelected = {
-
+                pageRouter.navigateTo(Screen.TermsAndConditionScreen)
                 })
+
+            Spacer(modifier = Modifier.height(40.dp))
+
+            ButtonComp(value = stringResource(id = R.string.signup))
+            DividerTextComp()
 
 
         }
