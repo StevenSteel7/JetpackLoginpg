@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.steve.loginpage.R
+import com.steve.loginpage.components.AlreadyAMemberComp
 import com.steve.loginpage.components.ButtonComp
 import com.steve.loginpage.components.CheckBoxComp
 import com.steve.loginpage.components.DividerTextComp
@@ -60,15 +61,26 @@ fun SignUpScreen(){
                 painterResource(id = R.drawable.baseline_lock_24)
             )
 
-            CheckBoxComp(value = stringResource(id = R.string.terms_and_conditions)
+            CheckBoxComp(
+                value = stringResource(id = R.string.terms_and_conditions)
                 ,onTextSelected = {
                 pageRouter.navigateTo(Screen.TermsAndConditionScreen)
-                })
+                }
+            )
 
             Spacer(modifier = Modifier.height(40.dp))
 
             ButtonComp(value = stringResource(id = R.string.signup))
             DividerTextComp()
+
+
+            AlreadyAMemberComp(text1 = "Already a Member? ",text2 = "Login ",onTextSelected = {
+                pageRouter.navigateTo(Screen.Login)
+                }
+            )
+
+
+
 
 
         }

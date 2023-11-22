@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "121045328867",
+    "project_id": "scanify-b8bdd",
+    "storage_bucket": "scanify-b8bdd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121045328867:android:c15d7c4c28fb8c277336d6",
+        "android_client_info": {
+          "package_name": "com.steve.loginpage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBSkZm2kJRyjnycoC9yY611UFCXibT1hk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

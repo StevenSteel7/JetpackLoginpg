@@ -43,6 +43,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -96,27 +97,31 @@ fun HeadingTextComponent(value: String){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTextField(labelValue: String , painterResource: Painter){
+fun MyTextField(labelValue: String, painterResource: Painter) {
+    // Use remember in a composable function
     val textVal = remember {
         mutableStateOf("")
     }
+
+    // Now you can safely use the remembered state in your composable
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
-        label = {Text(text = labelValue)},
+        label = { Text(text = labelValue) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Primary,
             focusedLabelColor = colorResource(id = R.color.primaryColor),
             cursorColor = colorResource(id = R.color.primaryColor)
         ),
-        keyboardOptions = KeyboardOptions.Default,
-        value  = textVal.value,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+        singleLine = true, // 'SingleLine' should be lowercase
+        value = textVal.value,
         onValueChange = { textVal.value = it },
-        //TO add icons
         leadingIcon = {
-            Icon(painter = painterResource  , contentDescription ="" )
+            Icon(painter = painterResource, contentDescription = "")
         }
     )
 }
+
 
 
 
@@ -137,8 +142,9 @@ fun MyPassField(labelValue: String , painterResource: Painter){
             focusedLabelColor = colorResource(id = R.color.primaryColor),
             cursorColor = colorResource(id = R.color.primaryColor)
         ),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password,imeAction = ImeAction.Done),
         value  = password.value,
+        singleLine = true,
         onValueChange = { password.value = it },
         //TO add icons
         leadingIcon = {
@@ -279,3 +285,40 @@ fun DividerTextComp(){
 
     }
 }
+
+
+
+//I made it
+@Composable
+fun AlreadyAMemberComp(text1: String, text2: String, onTextSelected : (String) -> Unit){
+    val initialText = text1
+
+    val BlueText = text2
+    val annonatedString  = buildAnnotatedString {
+        append(initialText)
+
+        withStyle(style = SpanStyle(color = Primary)){
+            pushStringAnnotation(tag = BlueText, annotation = BlueText)
+            append(BlueText)
+        }           //       ^
+        //Just for apperance |
+
+    }
+
+    ClickableText(text =annonatedString , onClick ={offset -> // This offest is use to find the part of span that we have clicked
+        annonatedString.getStringAnnotations(offset,offset)
+            .firstOrNull()?.also { span ->
+                Log.d("ClickableTextComponent","{$span}")
+                if(span.item == BlueText){
+                    onTextSelected(span.item)
+                    // onTextSelected is returned
+                    // CallBack implemented in signup
+                }
+            }
+    } )
+}
+
+
+
+
+

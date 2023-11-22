@@ -29,17 +29,22 @@ fun TermsAndCodition() {
             .background(Color.White)
             .padding(28.dp)
     ) {
+        SystemBackButtonHandler {
+            pageRouter.navigateTo(Screen.SignUpScreen)
+        }
+
+
         HeadingTextComponent(value = stringResource(id = R.string.terms_and_condition_header) )
 
+
+
+
     }
 
 
 
 
 
-    SystemBackButtonHandler {
-        pageRouter.navigateTo(Screen.SignUpScreen)
-    }
 }
 @Preview
 @Composable

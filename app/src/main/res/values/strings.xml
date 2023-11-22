@@ -13,7 +13,8 @@
     <string name="terms_and_condition_header">Terms of use</string>
     <string name="Lol">LOL\nLOL\nLOL\nLOL\nLOL</string>
     <string name="signup">Sign Up</string>
-    <string name="login">LOGIN</string>
+    <string name="login">Login</string>
+    <string name="Hey">Hey there!</string>
 
 
 </resources>

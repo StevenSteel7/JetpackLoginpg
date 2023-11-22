@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -72,4 +74,6 @@ dependencies {
 // for extra icons
     implementation("androidx.compose.material:material-icons-extended")
 
+    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
+    implementation("com.google.firebase:firebase-analytics")
 }
