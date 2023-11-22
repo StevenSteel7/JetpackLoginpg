@@ -57,10 +57,12 @@ fun Login() {
 
             MyTextField(labelValue = stringResource(id = R.string.email),
                 painterResource(id = R.drawable.email_24)
+                , onTextSelected = {}
             )
 
             MyPassField(labelValue = stringResource(id = R.string.pass),
                 painterResource(id = R.drawable.baseline_lock_24)
+                , onTextSelected = {}
             )
             Spacer(modifier = Modifier.height(150.dp))
 

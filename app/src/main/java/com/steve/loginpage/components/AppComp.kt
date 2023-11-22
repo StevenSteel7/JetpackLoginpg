@@ -97,7 +97,9 @@ fun HeadingTextComponent(value: String){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTextField(labelValue: String, painterResource: Painter) {
+fun MyTextField(labelValue: String, painterResource: Painter,
+                onTextSelected: (String) -> Unit
+                ) {
     // Use remember in a composable function
     val textVal = remember {
         mutableStateOf("")
@@ -115,7 +117,10 @@ fun MyTextField(labelValue: String, painterResource: Painter) {
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         singleLine = true, // 'SingleLine' should be lowercase
         value = textVal.value,
-        onValueChange = { textVal.value = it },
+        onValueChange = {
+            textVal.value = it
+            onTextSelected(it)
+                        },
         leadingIcon = {
             Icon(painter = painterResource, contentDescription = "")
         }
@@ -127,7 +132,8 @@ fun MyTextField(labelValue: String, painterResource: Painter) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyPassField(labelValue: String , painterResource: Painter){
+fun MyPassField(labelValue: String , painterResource: Painter,
+                onTextSelected: (String) -> Unit){
     val password = remember {
         mutableStateOf("")
     }
@@ -145,7 +151,8 @@ fun MyPassField(labelValue: String , painterResource: Painter){
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password,imeAction = ImeAction.Done),
         value  = password.value,
         singleLine = true,
-        onValueChange = { password.value = it },
+        onValueChange = { password.value = it
+                          onTextSelected(it)},
         //TO add icons
         leadingIcon = {
             Icon(painter = painterResource  , contentDescription ="" )
