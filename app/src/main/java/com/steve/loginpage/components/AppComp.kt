@@ -98,7 +98,7 @@ fun HeadingTextComponent(value: String){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTextField(labelValue: String, painterResource: Painter,
-                onTextSelected: (String) -> Unit
+                onTextChanged: (String) -> Unit,  errorStatus :Boolean = false// to See errors
                 ) {
     // Use remember in a composable function
     val textVal = remember {
@@ -119,11 +119,13 @@ fun MyTextField(labelValue: String, painterResource: Painter,
         value = textVal.value,
         onValueChange = {
             textVal.value = it
-            onTextSelected(it)
+            onTextChanged(it)
+
                         },
         leadingIcon = {
             Icon(painter = painterResource, contentDescription = "")
-        }
+        },
+        isError = !errorStatus
     )
 }
 
@@ -133,7 +135,7 @@ fun MyTextField(labelValue: String, painterResource: Painter,
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyPassField(labelValue: String , painterResource: Painter,
-                onTextSelected: (String) -> Unit){
+                onTextChanged: (String) -> Unit ,errorStatus :Boolean = false ){
     val password = remember {
         mutableStateOf("")
     }
@@ -152,7 +154,8 @@ fun MyPassField(labelValue: String , painterResource: Painter,
         value  = password.value,
         singleLine = true,
         onValueChange = { password.value = it
-                          onTextSelected(it)},
+                        onTextChanged(it)
+                        },
         //TO add icons
         leadingIcon = {
             Icon(painter = painterResource  , contentDescription ="" )
@@ -181,7 +184,8 @@ fun MyPassField(labelValue: String , painterResource: Painter,
 
         },
         visualTransformation = if(passwordVisible.value ) VisualTransformation.None
-        else PasswordVisualTransformation()
+        else PasswordVisualTransformation(),
+        isError = !errorStatus
     )
 }
 
@@ -244,8 +248,8 @@ fun ClickableTextComponent(value: String, onTextSelected : (String) -> Unit){
 
 
 @Composable
-fun ButtonComp(value: String ){
-    Button(onClick = { /*TODO*/ },
+fun ButtonComp(value: String, onButtonClicked :() -> Unit ){
+    Button(onClick = { onButtonClicked.invoke() },
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(48.dp),

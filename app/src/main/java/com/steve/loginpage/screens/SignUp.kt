@@ -52,26 +52,35 @@ fun SignUpScreen(loginViewModel: LoginViewModel = viewModel())
             MyTextField(labelValue = stringResource(id = R.string.first_name ),
                     painterResource(id = R.drawable.user_24)
                 ,//we need to tell view model the changed text
-                onTextSelected = {
+                onTextChanged = {
+                    //When text is changed.. we call on event
                     loginViewModel.onEvent(UiEvent.FirstNameChanged(it))
+
                                     //from loginView that we created in UiEvent
-                }
+                },
+                errorStatus = loginViewModel.registrationUIState.value.firstNameError
+
             )
 
             MyTextField(labelValue = stringResource(id = R.string.last_name),
                 painterResource(id = R.drawable.user_24)// for icon
-                , onTextSelected = {loginViewModel.onEvent(UiEvent.LastNameChanged(it))}
+                , onTextChanged = {loginViewModel.onEvent(UiEvent.LastNameChanged(it))},
+                errorStatus = loginViewModel.registrationUIState.value.lastNameError
+
             )
 
             MyTextField(labelValue = stringResource(id = R.string.email),
                 painterResource(id = R.drawable.email_24)
-                , onTextSelected = {loginViewModel.onEvent(UiEvent.EmailChanged(it))}
+                , onTextChanged = {loginViewModel.onEvent(UiEvent.EmailChanged(it))},
+                errorStatus = loginViewModel.registrationUIState.value.emailError
             )
 
             MyPassField(labelValue = stringResource(id = R.string.pass),
                 painterResource(id = R.drawable.baseline_lock_24)
-                , onTextSelected = {loginViewModel.onEvent(UiEvent.PasswordChanged(it))}
+                , onTextChanged = {loginViewModel.onEvent(UiEvent.PasswordChanged(it))},
+                errorStatus = loginViewModel.registrationUIState.value.passError
             )
+
 
             CheckBoxComp(
                 value = stringResource(id = R.string.terms_and_conditions)
@@ -82,7 +91,11 @@ fun SignUpScreen(loginViewModel: LoginViewModel = viewModel())
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            ButtonComp(value = stringResource(id = R.string.signup))
+                // When button is clicked.. this is triggred
+            ButtonComp(value = stringResource(id = R.string.signup), onButtonClicked = {
+                loginViewModel.onEvent(UiEvent.RegisterButtonClicked)
+                //From LoginViewModel.kt
+            })
             DividerTextComp()
 
 

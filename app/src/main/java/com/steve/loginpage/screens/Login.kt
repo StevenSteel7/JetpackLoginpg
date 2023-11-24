@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.steve.loginpage.R
 import com.steve.loginpage.components.AlreadyAMemberComp
 
@@ -24,13 +25,15 @@ import com.steve.loginpage.components.HeadingTextComponent
 import com.steve.loginpage.components.MyPassField
 import com.steve.loginpage.components.MyTextField
 import com.steve.loginpage.components.NormalTextComponent
+import com.steve.loginpage.data.UiEvent
 import com.steve.loginpage.navigation.Screen
 import com.steve.loginpage.navigation.SystemBackButtonHandler
 import com.steve.loginpage.navigation.pageRouter
+import com.steve.loginpage.data.LoginViewModel
 
 
 @Composable
-fun Login() {
+fun Login(loginViewModel: LoginViewModel = viewModel()) {
 
 
 
@@ -57,16 +60,18 @@ fun Login() {
 
             MyTextField(labelValue = stringResource(id = R.string.email),
                 painterResource(id = R.drawable.email_24)
-                , onTextSelected = {}
+                , onTextChanged = {}
             )
 
             MyPassField(labelValue = stringResource(id = R.string.pass),
                 painterResource(id = R.drawable.baseline_lock_24)
-                , onTextSelected = {}
+                , onTextChanged = {}
             )
             Spacer(modifier = Modifier.height(150.dp))
 
-            ButtonComp(value = stringResource(id = R.string.login))
+            ButtonComp(value = stringResource(id = R.string.login),onButtonClicked = {
+                loginViewModel.onEvent(UiEvent.RegisterButtonClicked)}
+            )
             Spacer(modifier = Modifier.height(40.dp))
             DividerTextComp()
             Spacer(modifier = Modifier.height(10.dp))
