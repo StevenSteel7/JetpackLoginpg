@@ -55,9 +55,9 @@ fun SignUpScreen(loginViewModel: LoginViewModel = viewModel())
                 onTextChanged = {
                     //When text is changed.. we call on event
                     loginViewModel.onEvent(UiEvent.FirstNameChanged(it))
-
                                     //from loginView that we created in UiEvent
                 },
+
                 errorStatus = loginViewModel.registrationUIState.value.firstNameError
 
             )
@@ -87,6 +87,10 @@ fun SignUpScreen(loginViewModel: LoginViewModel = viewModel())
                 ,onTextSelected = {
                 pageRouter.navigateTo(Screen.TermsAndConditionScreen)
                 }
+                ,onCheckedChange = {
+                            loginViewModel.onEvent(UiEvent.PrivacyPolicyCheckBoxClicked(it))
+                }
+
             )
 
             Spacer(modifier = Modifier.height(40.dp))
@@ -94,8 +98,11 @@ fun SignUpScreen(loginViewModel: LoginViewModel = viewModel())
                 // When button is clicked.. this is triggred
             ButtonComp(value = stringResource(id = R.string.signup), onButtonClicked = {
                 loginViewModel.onEvent(UiEvent.RegisterButtonClicked)
-                //From LoginViewModel.kt
-            })
+                //From LoginViewModel.kt }
+            },
+            isEnabled = loginViewModel.allValidationResult.value
+
+            )
             DividerTextComp()
 
 

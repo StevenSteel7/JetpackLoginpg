@@ -15,6 +15,7 @@
     <string name="signup">Sign Up</string>
     <string name="login">Login</string>
     <string name="Hey">Hey there!</string>
+    <string name="homescreen">HomeScreen</string>
 
 
 </resources>

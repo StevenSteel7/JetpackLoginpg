@@ -1,12 +1,10 @@
 package com.steve.loginpage.components
 
 import android.util.Log
-import android.widget.CheckBox
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -35,7 +33,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.unit.dp
@@ -120,7 +117,6 @@ fun MyTextField(labelValue: String, painterResource: Painter,
         onValueChange = {
             textVal.value = it
             onTextChanged(it)
-
                         },
         leadingIcon = {
             Icon(painter = painterResource, contentDescription = "")
@@ -191,7 +187,7 @@ fun MyPassField(labelValue: String , painterResource: Painter,
 
 
 @Composable                                                     //void
-fun CheckBoxComp(value: String , onTextSelected : (String) -> Unit){
+fun CheckBoxComp(value: String , onTextSelected : (String) -> Unit ,onCheckedChange : (Boolean) -> Unit){
     Row( modifier = Modifier
         .fillMaxWidth()
         .heightIn(56.dp),
@@ -200,13 +196,24 @@ fun CheckBoxComp(value: String , onTextSelected : (String) -> Unit){
         val checkedState = remember {
         mutableStateOf<Boolean>(false)
         }
-
+/*
         Checkbox(checked = checkedState.value, onCheckedChange ={
-            checkedState.value != checkedState.value
-        } )
+            checkedState.value = checkedState.value
 
-        /*NormalTextComponent(value)*/
+        } )*/
+
+        Checkbox(
+            checked = checkedState.value,
+            onCheckedChange = {
+
+                checkedState.value = it // Use the assignment operator to update the state
+                onCheckedChange(it) // Notify the outer component about the change
+            }
+        )
+
+
         ClickableTextComponent(value = value,onTextSelected)
+
     }
 }
 
@@ -248,12 +255,14 @@ fun ClickableTextComponent(value: String, onTextSelected : (String) -> Unit){
 
 
 @Composable
-fun ButtonComp(value: String, onButtonClicked :() -> Unit ){
+fun ButtonComp(value: String, onButtonClicked: () -> Unit, isEnabled: Boolean){
     Button(onClick = { onButtonClicked.invoke() },
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(48.dp),
     contentPadding = PaddingValues(),
+        //if enabled or not....
+        enabled = isEnabled,
         colors = ButtonDefaults.buttonColors(Color.Transparent))
     {
         //For gradient
@@ -265,7 +274,8 @@ fun ButtonComp(value: String, onButtonClicked :() -> Unit ){
                  shape = RoundedCornerShape(50.dp)
              ),
             contentAlignment = Alignment.Center
-        ){
+        )
+         {
             Text(text = value,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold)

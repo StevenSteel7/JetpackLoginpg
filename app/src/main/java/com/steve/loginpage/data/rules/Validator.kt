@@ -35,7 +35,12 @@ object Validator {
             (!pass.isNullOrEmpty() && pass.length>=6)
         )
 
+    }
 
+    fun validatePrivacyPolicyClicked(statusValue :Boolean) :ValidationResult {
+        return ValidationResult(
+            statusValue
+        )
     }
 }
 

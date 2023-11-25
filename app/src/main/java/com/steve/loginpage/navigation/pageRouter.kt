@@ -11,12 +11,14 @@ sealed class Screen {
     object TermsAndConditionScreen : Screen()
     object Login : Screen()
 
+    object Homescreen : Screen()
+
 
 }
 
 
 object pageRouter {
-    val currentScreen : MutableState<Screen> = mutableStateOf(Screen.SignUpScreen)
+    val currentScreen : MutableState<Screen> = mutableStateOf(Screen.SignUpScreen) //Default screen
 
     fun navigateTo(destination : Screen){ // The destination we pass will become the current screen
         //To Navigate to any page

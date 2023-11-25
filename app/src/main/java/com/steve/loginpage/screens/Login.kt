@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,7 +26,6 @@ import com.steve.loginpage.components.MyTextField
 import com.steve.loginpage.components.NormalTextComponent
 import com.steve.loginpage.data.UiEvent
 import com.steve.loginpage.navigation.Screen
-import com.steve.loginpage.navigation.SystemBackButtonHandler
 import com.steve.loginpage.navigation.pageRouter
 import com.steve.loginpage.data.LoginViewModel
 
@@ -44,9 +42,6 @@ fun Login(loginViewModel: LoginViewModel = viewModel()) {
             .background(Color.White)
             .padding(top = 80.dp)
             .padding(38.dp)
-
-
-
     )
 
     {
@@ -69,8 +64,9 @@ fun Login(loginViewModel: LoginViewModel = viewModel()) {
             )
             Spacer(modifier = Modifier.height(150.dp))
 
-            ButtonComp(value = stringResource(id = R.string.login),onButtonClicked = {
-                loginViewModel.onEvent(UiEvent.RegisterButtonClicked)}
+            ButtonComp(
+                value = stringResource(id = R.string.login), onButtonClicked = {
+                    loginViewModel.onEvent(UiEvent.RegisterButtonClicked)}, isEnabled = loginViewModel.allValidationResult.value
             )
             Spacer(modifier = Modifier.height(40.dp))
             DividerTextComp()

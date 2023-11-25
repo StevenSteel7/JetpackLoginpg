@@ -6,6 +6,7 @@ data class RegistrationUIState(
     var lastName   :String = "",
     var email      :String = "",
     var passowrd   :String = "",
+    var privacyPolicyAccepted :Boolean = false,
 
     var firstNameError: Boolean = false,
     var lastNameError: Boolean = false,

@@ -55,6 +55,7 @@ android {
 dependencies {
 
     implementation("androidx.privacysandbox.tools:tools-core:1.0.0-alpha06")
+    implementation("com.google.firebase:firebase-auth-ktx:22.3.0")
     val lifecycle_version = "2.6.2";
 
     implementation("androidx.core:core-ktx:1.9.0")

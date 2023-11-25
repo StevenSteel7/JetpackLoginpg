@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.steve.loginpage.navigation.Screen
 import com.steve.loginpage.navigation.pageRouter
+import com.steve.loginpage.screens.Homescreen
 import com.steve.loginpage.screens.Login
 import com.steve.loginpage.screens.SignUpScreen
 import com.steve.loginpage.screens.TermsAndCodition
@@ -24,6 +25,7 @@ fun theApp(){
                 is Screen.SignUpScreen ->{ SignUpScreen() }
                 is Screen.TermsAndConditionScreen -> { TermsAndCodition() }
                 is Screen.Login -> { Login() }
+                is Screen.Homescreen -> { Homescreen()}
             }
             
         }
