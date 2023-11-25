@@ -6,6 +6,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.steve.loginpage.data.SignUpViewModel
 import com.steve.loginpage.navigation.Screen
 import com.steve.loginpage.navigation.pageRouter
 import com.steve.loginpage.screens.Homescreen
@@ -22,10 +23,10 @@ fun theApp(){
     ) {   //actually changing the page...
         Crossfade(targetState = pageRouter.currentScreen, label = "") { currentState->
             when(currentState.value){
-                is Screen.SignUpScreen ->{ SignUpScreen() }
+                is Screen.SignUpScreen ->{ SignUpScreen(signUpViewModel = SignUpViewModel()) }
                 is Screen.TermsAndConditionScreen -> { TermsAndCodition() }
                 is Screen.Login -> { Login() }
-                is Screen.Homescreen -> { Homescreen()}
+                is Screen.Homescreen -> { Homescreen(loginViewModel = SignUpViewModel())}
             }
             
         }

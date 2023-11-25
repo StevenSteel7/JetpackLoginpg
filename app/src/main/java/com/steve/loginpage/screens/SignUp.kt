@@ -24,13 +24,13 @@ import com.steve.loginpage.components.HeadingTextComponent
 import com.steve.loginpage.components.MyPassField
 import com.steve.loginpage.components.MyTextField
 import com.steve.loginpage.components.NormalTextComponent
-import com.steve.loginpage.data.LoginViewModel
-import com.steve.loginpage.data.UiEvent
+import com.steve.loginpage.data.SignUpViewModel
+import com.steve.loginpage.data.SignupUiEvent
 import com.steve.loginpage.navigation.Screen
 import com.steve.loginpage.navigation.pageRouter
 
 @Composable
-fun SignUpScreen(loginViewModel: LoginViewModel = viewModel())
+fun SignUpScreen(signUpViewModel: SignUpViewModel)
     {
 
     Surface(
@@ -54,31 +54,31 @@ fun SignUpScreen(loginViewModel: LoginViewModel = viewModel())
                 ,//we need to tell view model the changed text
                 onTextChanged = {
                     //When text is changed.. we call on event
-                    loginViewModel.onEvent(UiEvent.FirstNameChanged(it))
+                    signUpViewModel.onEvent(SignupUiEvent.FirstNameChanged(it))
                                     //from loginView that we created in UiEvent
                 },
 
-                errorStatus = loginViewModel.registrationUIState.value.firstNameError
+                errorStatus = signUpViewModel.registrationUIState.value.firstNameError
 
             )
 
             MyTextField(labelValue = stringResource(id = R.string.last_name),
                 painterResource(id = R.drawable.user_24)// for icon
-                , onTextChanged = {loginViewModel.onEvent(UiEvent.LastNameChanged(it))},
-                errorStatus = loginViewModel.registrationUIState.value.lastNameError
+                , onTextChanged = {signUpViewModel.onEvent(SignupUiEvent.LastNameChanged(it))},
+                errorStatus = signUpViewModel.registrationUIState.value.lastNameError
 
             )
 
             MyTextField(labelValue = stringResource(id = R.string.email),
                 painterResource(id = R.drawable.email_24)
-                , onTextChanged = {loginViewModel.onEvent(UiEvent.EmailChanged(it))},
-                errorStatus = loginViewModel.registrationUIState.value.emailError
+                , onTextChanged = {signUpViewModel.onEvent(SignupUiEvent.EmailChanged(it))},
+                errorStatus = signUpViewModel.registrationUIState.value.emailError
             )
 
             MyPassField(labelValue = stringResource(id = R.string.pass),
                 painterResource(id = R.drawable.baseline_lock_24)
-                , onTextChanged = {loginViewModel.onEvent(UiEvent.PasswordChanged(it))},
-                errorStatus = loginViewModel.registrationUIState.value.passError
+                , onTextChanged = {signUpViewModel.onEvent(SignupUiEvent.PasswordChanged(it))},
+                errorStatus = signUpViewModel.registrationUIState.value.passError
             )
 
 
@@ -88,7 +88,7 @@ fun SignUpScreen(loginViewModel: LoginViewModel = viewModel())
                 pageRouter.navigateTo(Screen.TermsAndConditionScreen)
                 }
                 ,onCheckedChange = {
-                            loginViewModel.onEvent(UiEvent.PrivacyPolicyCheckBoxClicked(it))
+                    signUpViewModel.onEvent(SignupUiEvent.PrivacyPolicyCheckBoxClicked(it))
                 }
 
             )
@@ -97,10 +97,10 @@ fun SignUpScreen(loginViewModel: LoginViewModel = viewModel())
 
                 // When button is clicked.. this is triggred
             ButtonComp(value = stringResource(id = R.string.signup), onButtonClicked = {
-                loginViewModel.onEvent(UiEvent.RegisterButtonClicked)
+                signUpViewModel.onEvent(SignupUiEvent.RegisterButtonClicked)
                 //From LoginViewModel.kt }
             },
-            isEnabled = loginViewModel.allValidationResult.value
+            isEnabled = signUpViewModel.allValidationResult.value
 
             )
             DividerTextComp()
@@ -123,5 +123,5 @@ fun SignUpScreen(loginViewModel: LoginViewModel = viewModel())
 @Preview
 @Composable
 fun DefaultPreviewOfSignUp(){
-    SignUpScreen()
+    SignUpScreen(signUpViewModel = SignUpViewModel())
 }

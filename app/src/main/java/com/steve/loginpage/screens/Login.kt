@@ -24,10 +24,12 @@ import com.steve.loginpage.components.HeadingTextComponent
 import com.steve.loginpage.components.MyPassField
 import com.steve.loginpage.components.MyTextField
 import com.steve.loginpage.components.NormalTextComponent
-import com.steve.loginpage.data.UiEvent
+import com.steve.loginpage.data.LoginUiEvent
+import com.steve.loginpage.data.LoginViewModel
+import com.steve.loginpage.data.SignupUiEvent
 import com.steve.loginpage.navigation.Screen
 import com.steve.loginpage.navigation.pageRouter
-import com.steve.loginpage.data.LoginViewModel
+import com.steve.loginpage.data.SignUpViewModel
 
 
 @Composable
@@ -55,18 +57,26 @@ fun Login(loginViewModel: LoginViewModel = viewModel()) {
 
             MyTextField(labelValue = stringResource(id = R.string.email),
                 painterResource(id = R.drawable.email_24)
-                , onTextChanged = {}
+                , onTextChanged = {
+                    loginViewModel.onEvent(LoginUiEvent.EmailChanged(it))
+
+                },
+                errorStatus = loginViewModel.LoginUIState.value.emailError
             )
 
             MyPassField(labelValue = stringResource(id = R.string.pass),
                 painterResource(id = R.drawable.baseline_lock_24)
-                , onTextChanged = {}
+                , onTextChanged = {
+                    loginViewModel.onEvent(LoginUiEvent.PasswordChanged(it))
+                }
+                ,errorStatus = loginViewModel.LoginUIState.value.passError
             )
             Spacer(modifier = Modifier.height(150.dp))
 
             ButtonComp(
                 value = stringResource(id = R.string.login), onButtonClicked = {
-                    loginViewModel.onEvent(UiEvent.RegisterButtonClicked)}, isEnabled = loginViewModel.allValidationResult.value
+                    loginViewModel.onEvent(LoginUiEvent.LoginButtonClicked)},
+                isEnabled = loginViewModel.allValidationResult.value
             )
             Spacer(modifier = Modifier.height(40.dp))
             DividerTextComp()
